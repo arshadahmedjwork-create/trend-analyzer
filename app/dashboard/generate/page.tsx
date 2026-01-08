@@ -117,7 +117,8 @@ export default function GeneratePage() {
                 }),
             });
 
-            const data: PipelineOutput = await res.json();
+            const data = await res.json();
+            
             if (!res.ok) {
                 throw new Error(data.error || "Generation failed");
             }
