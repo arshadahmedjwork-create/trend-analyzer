@@ -307,9 +307,9 @@ export default function GeneratePage() {
 
                     <Button
                         variant="outline"
-                        size="icon"
+                        size="sm"
                         onClick={() => fileInputRef.current?.click()}
-                        className="shrink-0"
+                        className="shrink-0 w-10 h-10 p-0"
                         disabled={loading}
                     >
                         <ImageIcon className="w-4 h-4" />
@@ -317,9 +317,9 @@ export default function GeneratePage() {
 
                     <Button
                         variant="outline"
-                        size="icon"
+                        size="sm"
                         onClick={() => audioInputRef.current?.click()}
-                        className="shrink-0 hidden md:flex"
+                        className="shrink-0 hidden md:flex w-10 h-10 p-0"
                         disabled={loading}
                     >
                         <Mic className="w-4 h-4" />
@@ -345,8 +345,8 @@ export default function GeneratePage() {
                     <Button
                         onClick={handleSend}
                         disabled={loading || (!inputText.trim() && !imageFile && !audioFile)}
-                        size="icon"
-                        className="bg-white text-black hover:bg-gray-200 shrink-0"
+                        size="sm"
+                        className="bg-white text-black hover:bg-gray-200 shrink-0 w-10 h-10 p-0"
                     >
                         <Send className="w-4 h-4" />
                     </Button>
