@@ -18,9 +18,14 @@ export default function DashboardLayout({
     const router = useRouter();
     const pathname = usePathname();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        if (!loading) {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!loading && mounted) {
             if (!user) {
                 router.push("/login");
             } else if (profile) {
@@ -31,9 +36,9 @@ export default function DashboardLayout({
                 }
             }
         }
-    }, [user, profile, loading, router]);
+    }, [user, profile, loading, router, mounted]);
 
-    if (loading) {
+    if (!mounted || loading) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-black text-white">
                 Loading...
