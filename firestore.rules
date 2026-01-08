@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User Profiles
+    match /users/{userId} {
+      // 1. Anyone can create their own profile during signup (if it matches their Auth UID)
+      allow create: if request.auth != null && request.auth.uid == userId;
+      
+      // 2. Users can read their own profile
+      allow read: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      
+      // 3. Only Admins can update roles/status/permissions
+      allow update: if request.auth != null && isAdmin();
+      
+      // 4. Delete: Admins only (optional)
+      allow delete: if isAdmin();
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // Helper function to check if user has 'admin' role in their custom claims OR in their user doc
+    // Note: Since we store role in the doc, we must fetch it. 
+    // WARNING: get() costs 1 read. 
+    function isAdmin() {
+       return request.auth != null && 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+  }
+}
