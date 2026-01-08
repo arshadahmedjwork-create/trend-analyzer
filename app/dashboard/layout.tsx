@@ -93,8 +93,9 @@ export default function DashboardLayout({
                 </div>
                 <Button
                     variant="ghost"
-                    size="icon"
+                    size="sm"
                     onClick={() => setSidebarOpen(!sidebarOpen)}
+                    className="w-10 h-10 p-0"
                 >
                     {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </Button>
